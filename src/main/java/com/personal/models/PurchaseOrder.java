@@ -12,8 +12,8 @@ public class PurchaseOrder {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "userCredentialId")
     private UserCredential userCredential;
-    private String shippingInfo;
-    private String paymentInfo;
+    private String shipping;
+    private String payment;
 
     public UUID getId() {
         return id;
@@ -31,20 +31,20 @@ public class PurchaseOrder {
         this.userCredential = userCredential;
     }
 
-    public String getShippingInfo() {
-        return shippingInfo;
+    public String getShipping() {
+        return shipping;
     }
 
-    public void setShippingInfo(String shippingInfo) {
-        this.shippingInfo = shippingInfo;
+    public void setShipping(String shippingInfo) {
+        this.shipping = shippingInfo;
     }
 
-    public String getPaymentInfo() {
-        return paymentInfo;
+    public String getPayment() {
+        return payment;
     }
 
-    public void setPaymentInfo(String paymentInfo) {
-        this.paymentInfo = paymentInfo;
+    public void setPayment(String paymentInfo) {
+        this.payment = paymentInfo;
     }
 
 }

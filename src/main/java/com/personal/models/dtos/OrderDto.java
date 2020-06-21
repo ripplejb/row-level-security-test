@@ -5,8 +5,8 @@ import java.util.UUID;
 public class OrderDto {
     private UUID id;
     private UUID userId;
-    private String shippingInfo;
-    private String paymentInfo;
+    private String shipping;
+    private String payment;
 
     public UUID getId() {
         return id;
@@ -24,20 +24,20 @@ public class OrderDto {
         this.userId = userId;
     }
 
-    public String getShippingInfo() {
-        return shippingInfo;
+    public String getShipping() {
+        return shipping;
     }
 
-    public void setShippingInfo(String shippingInfo) {
-        this.shippingInfo = shippingInfo;
+    public void setShipping(String shipping) {
+        this.shipping = shipping;
     }
 
-    public String getPaymentInfo() {
-        return paymentInfo;
+    public String getPayment() {
+        return payment;
     }
 
-    public void setPaymentInfo(String paymentInfo) {
-        this.paymentInfo = paymentInfo;
+    public void setPayment(String payment) {
+        this.payment = payment;
     }
 
 }

@@ -44,9 +44,11 @@ public class MyAuthenticationProvider implements AuthenticationProvider {
                 .map(user -> {
                     if (user.getPassword().equals(authenticationRequest.getSecret())) {
                         if (user.getUsername().endsWith("Admin")) {
-                            return new UserDetails(user.getId().toString(), List.of("user.full"));
+                            return new UserDetails(user.getId().toString(),
+                                    List.of("user.full", "order.full"));
                         } else {
-                            return new UserDetails(user.getId().toString(), List.of("self:user.full"));
+                            return new UserDetails(user.getId().toString(),
+                                    List.of("self:user.full", "self:order.full"));
                         }
                     } else {
                         return new AuthenticationFailed("Invalid Secret.");

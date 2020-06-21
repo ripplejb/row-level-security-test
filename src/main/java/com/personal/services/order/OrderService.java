@@ -6,12 +6,11 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface OrderService {
-    Maybe<OrderDto> createNewOrder(OrderDto orderDto);
+    Single<OrderDto> createNewOrder(OrderDto orderDto);
     Single<OrderDto> updateOrder(OrderDto orderDto);
-    Single<OrderDto> getOrderById(UUID orderId);
-    Flowable<List<OrderDto>> searchOrder(OrderSearchRequest orderSearchRequest);
+    Maybe<OrderDto> getOrderById(UUID orderId);
+    Flowable<OrderDto> searchOrder(OrderSearchRequest orderSearchRequest);
 }

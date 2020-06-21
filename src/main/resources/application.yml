@@ -19,6 +19,29 @@ micronaut:
               secret: eiRDJkYpSEBNY1FmVGpXblpyNHU3eCFBJUQqRy1LYU4=
               base64: true
               jws-algorithm: HS256
+      roles-name: 'scopes'
+
+authorization-policies:
+  order-full:
+    scopes:
+      - 'order.full'
+      - 'self:order.full'
+  order-readonly:
+    scopes:
+      - 'order.readonly'
+      - 'self:order.readonly'
+      - 'order.full'
+      - 'self:order.full'
+  user-full:
+    scopes:
+      - 'user.full'
+      - 'self:user.full'
+  user-readonly:
+    scopes:
+      - 'user.readonly'
+      - 'self:user.readonly'
+      - 'user.full'
+      - 'self:user.full'
 
 
 datasources:
