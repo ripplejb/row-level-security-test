@@ -1,0 +1,41 @@
+micronaut:
+  application:
+    name: row-level-security-test
+  security:
+    enabled: true
+    endpoints:
+      login:
+        enabled: true
+      logout:
+        enabled: true
+      keys:
+        enabled: true
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          secret:
+            generator:
+              secret: eiRDJkYpSEBNY1FmVGpXblpyNHU3eCFBJUQqRy1LYU4=
+              base64: true
+              jws-algorithm: HS256
+
+
+datasources:
+  default:
+    url: 'jdbc:postgresql://localhost:5432/row-level-security'
+    username: ripalbarot
+    password: strongPassword
+    schema-generate: CREATE_DROP
+
+jpa:
+  entity-scan:
+    packages: 'com.personal.models'
+  default:
+    properties:
+      hibernate:
+        bytecode:
+          provider: none
+        hbm2ddl:
+          auto: update
+        show_sql: true

@@ -1,0 +1,81 @@
+plugins {
+    id "net.ltgt.apt-eclipse" version "0.21"
+    id "com.github.johnrengelman.shadow" version "5.2.0"
+    id "application"
+}
+
+version "0.1"
+group "com.personal"
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+configurations {
+    // for dependencies that are needed for development only
+    developmentOnly 
+}
+
+sourceSets {
+    main.java.srcDirs += "build/generated/sources/annotationProcessor/java/main/com.personal.services.mappers"
+}
+
+dependencies {
+    annotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    annotationProcessor "io.micronaut:micronaut-inject-java"
+    annotationProcessor "io.micronaut:micronaut-validation"
+    implementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    implementation "io.micronaut:micronaut-inject"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-runtime"
+    implementation "javax.annotation:javax.annotation-api"
+    implementation "io.micronaut:micronaut-http-server-netty"
+    implementation "io.micronaut:micronaut-http-client"
+    runtimeOnly "ch.qos.logback:logback-classic:1.2.3"
+
+    // Start:Database
+    annotationProcessor "io.micronaut.data:micronaut-data-processor:1.1.0"
+    implementation "io.micronaut.data:micronaut-data-hibernate-jpa:1.1.0"
+    runtime "io.micronaut.configuration:micronaut-jdbc-tomcat"
+    runtime "org.postgresql:postgresql:42.2.5"
+    // End:Database
+
+    // Start:Mapper
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.3.1.Final"
+    implementation "org.mapstruct:mapstruct:1.3.1.Final"
+    // End:Mapper
+
+    // Start:Security
+    annotationProcessor "io.micronaut:micronaut-security"
+    implementation "io.micronaut:micronaut-security-jwt"
+    // End:Security
+
+    testAnnotationProcessor platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testImplementation platform("io.micronaut:micronaut-bom:$micronautVersion")
+    testImplementation "org.junit.jupiter:junit-jupiter-api"
+    testImplementation "io.micronaut.test:micronaut-test-junit5"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine"
+}
+
+test.classpath += configurations.developmentOnly
+
+mainClassName = "com.personal.Application"
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+tasks.withType(JavaCompile){
+    options.encoding = "UTF-8"
+    options.compilerArgs.add('-parameters')
+}
+
+shadowJar {
+    mergeServiceFiles()
+}
+
+tasks.withType(JavaExec) {
+    classpath += configurations.developmentOnly
+    jvmArgs('-noverify', '-XX:TieredStopAtLevel=1', '-Dcom.sun.management.jmxremote')
+}
